@@ -34,7 +34,6 @@ jobs:
         run: npm run build -- --configuration production
 
       # -------------------------------
-     # Zip Angular frontend build output
 - name: Zip Angular build output
   run: zip -r job-tracker-frontend.zip ./job-tracker-frontend/dist/job-tracker-frontend
 
