@@ -34,19 +34,19 @@ jobs:
         run: npm run build -- --configuration production
 
       # -------------------------------
-- name: Zip Angular build output
-  run: zip -r job-tracker-frontend.zip ./job-tracker-frontend/dist/job-tracker-frontend
+      # 2️⃣ Deploy Angular frontend to Azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-# Deploy Angular frontend
-- name: Deploy Angular frontend using Azure CLI
-  run: |
-    az webapp deploy \
-      --resource-group JobTrackerGroup \
-      --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
-      --src-path ./job-tracker-frontend/job-tracker-frontend.zip \
-      --type static
-
-
+      - name: Deploy Angular frontend using Azure CLI
+        run: |
+          az webapp deploy \
+            --resource-group JobTrackerGroup \
+            --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
+            --src-path C:/Users/Ravi/Documents/PersonalProjects/jobtracker-application/job-tracker-frontend/dist/job-tracker-frontend \
+            --type static
       # -------------------------------
       # 3️⃣ Build .NET backend
       - name: Setup .NET Core
@@ -67,15 +67,11 @@ jobs:
         run: dotnet publish -c Release -o publish
 
       # -------------------------------
-      # Zip .NET backend publish output
-- name: Zip .NET backend publish folder
-  run: zip -r backend.zip ./job-tracker-backend/publish
-
-# Deploy backend
-- name: Deploy .NET backend using Azure CLI
-  run: |
-    az webapp deploy \
-      --resource-group JobTrackerGroup \
-      --name ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }} \
-      --src-path ./backend.zip \
-      --type zip
+      # 4️⃣ Deploy .NET backend to Azure
+      - name: Deploy .NET backend using Azure CLI
+        run: |
+          az webapp deploy \
+            --resource-group JobTrackerGroup \
+            --name ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }} \
+            --src-path ./job-tracker-backend/publish \
+            --type zip
