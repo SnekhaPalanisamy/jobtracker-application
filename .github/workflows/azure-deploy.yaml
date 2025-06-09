@@ -39,18 +39,20 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
       - name: Zip Angular frontend
-        run: zip -r job-tracker-frontend.zip ./job-tracker-frontend/dist/job-tracker-frontend
+        run: |
+          cd job-tracker-frontend/dist
+          zip -r ../../../job-tracker-frontend.zip job-tracker-frontend
 
       - name: Deploy Angular frontend using Azure CLI
         run: |
-          az webapp deploy \
-            --resource-group JobTrackerGroup \
-            --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
-            --src-path ../job-tracker-frontend.zip \
-            --type static
-      # -------------------------------
+         az webapp deploy \
+         --resource-group JobTrackerGroup \
+         --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
+         --src-path ./job-tracker-frontend.zip \
+         --type static
+
       # 3️⃣ Build .NET backend
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
