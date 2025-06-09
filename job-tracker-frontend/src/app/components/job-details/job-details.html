@@ -1,0 +1,17 @@
+<div class="job-details-card animate-fade-in shadow-lg p-4 rounded-4">
+  <h2 class="job-title mb-3">
+    {{ job?.position }} <span class="text-muted">&#64; {{ job?.companyName }}</span>
+  </h2>
+
+  <p class="job-info">
+    <strong>Status:</strong> 
+    <span class="badge bg-info text-dark ms-1">{{ job?.status }}</span>
+  </p>
+
+  <p class="job-info">
+    <strong>Applied Date:</strong>
+    <span class="text-secondary ms-1">{{ job?.appliedDate | date:'fullDate' }}</span>
+  </p>
+
+  <a routerLink="/" class="btn btn-outline-primary mt-4">⬅ Back to List</a>
+</div>

@@ -1,0 +1,65 @@
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+ <div class="card-header custom-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">{{ isEditMode ? 'Edit Job' : 'Add New Job' }}</h4>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #jobForm="ngForm">
+      <div class="mb-3">
+        <label for="companyName" class="form-label">Company Name</label>
+        <input
+          type="text"
+          id="companyName"
+          class="form-control"
+          [(ngModel)]="job.companyName"
+          name="companyName"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="position" class="form-label">Position</label>
+        <input
+          type="text"
+          id="position"
+          class="form-control"
+          [(ngModel)]="job.position"
+          name="position"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select
+          id="status"
+          class="form-select"
+          [(ngModel)]="job.status"
+          name="status"
+          required
+        >
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="appliedDate" class="form-label">Applied Date</label>
+        <input
+          type="date"
+          id="appliedDate"
+          class="form-control"
+          [(ngModel)]="job.appliedDate"
+          name="appliedDate"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="jobForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+      <a routerLink="/" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>

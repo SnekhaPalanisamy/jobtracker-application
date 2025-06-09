@@ -1,0 +1,51 @@
+.job-details-card {
+  max-width: 700px;
+  margin: 60px auto;
+  background-color: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-details-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.job-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #4a148c;
+  animation: slideInDown 0.8s ease-out;
+}
+
+.job-info {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+/* Animations */
+@keyframes slideInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease;
+}

@@ -1,0 +1,21 @@
+<div class="job-list-wrapper">
+<div class="card shadow-sm">
+<div class="card-header custom-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">Jobs List</h4>
+    <a routerLink="/add-job" class="btn btn-outline-primary btn-sm">Add New Job</a>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let job of jobs" class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h5>{{ job.position }} &#64; {{ job.companyName }}</h5>
+        <small class="text-muted">Status: {{ job.status }} | Applied: {{ job.appliedDate | date:'mediumDate' }}</small>
+      </div>
+      <div class="btn-group btn-group-sm" role="group">
+        <a [routerLink]="['/job', job.id]" class="btn btn-outline-primary">Details</a>
+        <a [routerLink]="['/edit-job', job.id]" class="btn btn-outline-warning">Edit</a>
+        <button (click)="deleteJob(job.id)" class="btn btn-outline-danger">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</div>
