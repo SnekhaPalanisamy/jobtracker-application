@@ -32,13 +32,18 @@ jobs:
       run: npm run build -- --configuration production
 
     ### 2️⃣ DEPLOY ANGULAR TO AZURE ###
-    - name: 'Deploy Angular to Azure Web App'
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }}
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
-        package: ./job-tracker-frontend/dist/job-tracker-frontend  # Replace with actual dist folder name
+        - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Angular frontend using Azure CLI
+        run: |
+          az webapp deploy \
+            --resource-group JobTrackerGroup \
+            --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
+            --src-path ./job-tracker-frontend/dist/job-tracker-frontend \
+            --type static
 
     ### 3️⃣ SET UP .NET BACKEND ###
     - name: Setup .NET Core
