@@ -3,36 +3,39 @@ name: Deploy JobTracker App (.NET + Angular)
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # Change if your default branch is different
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: './'  # root folder
+  NODE_VERSION: '20'   # Angular requires Node 20 or higher
+  DOTNET_VERSION: '8.0.x'  # Your .NET version
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    ### 1️⃣ SET UP ANGULAR ###
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      # -------------------------------
+      # 1️⃣ Build Angular frontend
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-    - name: Install Angular dependencies
-      working-directory: ./job-tracker-frontend
-      run: npm install
+      - name: Install Angular dependencies
+        working-directory: ./job-tracker-frontend
+        run: npm install
 
-    - name: Build Angular app
-      working-directory: ./job-tracker-frontend
-      run: npm run build -- --configuration production
+      - name: Build Angular app
+        working-directory: ./job-tracker-frontend
+        run: npm run build -- --configuration production
 
-    ### 2️⃣ DEPLOY ANGULAR TO AZURE ###
-        - name: Login to Azure
+      # -------------------------------
+      # 2️⃣ Deploy Angular frontend to Azure
+      - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -45,29 +48,31 @@ jobs:
             --src-path ./job-tracker-frontend/dist/job-tracker-frontend \
             --type static
 
-    ### 3️⃣ SET UP .NET BACKEND ###
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      # -------------------------------
+      # 3️⃣ Build .NET backend
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore .NET dependencies
-      working-directory: ./job-tracker-backend
-      run: dotnet restore
+      - name: Restore .NET dependencies
+        working-directory: ./job-tracker-backend
+        run: dotnet restore
 
-    - name: Build .NET backend
-      working-directory: ./job-tracker-backend
-      run: dotnet build --configuration Release
+      - name: Build .NET backend
+        working-directory: ./job-tracker-backend
+        run: dotnet build --configuration Release
 
-    - name: Publish .NET backend
-      working-directory: ./backend
-      run: dotnet publish -c Release -o publish
+      - name: Publish .NET backend
+        working-directory: ./job-tracker-backend
+        run: dotnet publish -c Release -o publish
 
-    ### 4️⃣ DEPLOY .NET BACKEND TO AZURE ###
-    - name: Deploy .NET backend to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }}
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
-        package: ./job-tracker-backend/publish
+      # -------------------------------
+      # 4️⃣ Deploy .NET backend to Azure
+      - name: Deploy .NET backend using Azure CLI
+        run: |
+          az webapp deploy \
+            --resource-group JobTrackerGroup \
+            --name ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }} \
+            --src-path ./job-tracker-backend/publish \
+            --type zip
