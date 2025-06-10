@@ -9,8 +9,8 @@ on:
 env:
   NODE_VERSION: '20'   # Angular requires Node 20 or higher
   DOTNET_VERSION: '8.0.x'   # Your .NET version
-  AZURE_WEBAPP_PACKAGE_PATH:  "./publish"
-
+  AZURE_FRONTAPP_PACKAGE_PATH:  "./job-tracker-frontend/dist/job-tracker-frontend/browser"
+  AZURE_BACKAPP_PACKAGE_PATH:  "./job-tracker-backend"
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -19,8 +19,7 @@ jobs:
       # Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # -------------------------------
+        
       # 1️⃣ Build Angular frontend
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -46,10 +45,11 @@ jobs:
         name: Deploy Angular frontend using Azure CLI
         with:
          app-name: ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }}
-         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/job-tracker-frontend'
-
-      # 3️⃣ Build .NET backend
+         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND }}
+         package: ${{ env.AZURE_FRONTAPP_PACKAGE_PATH }}
+         
+      # -------------------------------
+            # 3️⃣ Build .NET backend
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
@@ -74,5 +74,5 @@ jobs:
         name: Deploy .NET backend using Azure CLI
         with:
          app-name: ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }}
-         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/job-tracker-backend'
+         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_BACKEND }}
+         package: '${{ env.AZURE_BACKAPP_PACKAGE_PATH }}/publish'
