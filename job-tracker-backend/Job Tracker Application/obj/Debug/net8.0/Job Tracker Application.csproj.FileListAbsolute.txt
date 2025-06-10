@@ -334,3 +334,4 @@ C:\Users\Ravi\Documents\PersonalProjects\jobtracker-application\job-tracker-back
 C:\Users\Ravi\Documents\PersonalProjects\jobtracker-application\job-tracker-backend\Job Tracker Application\obj\Debug\net8.0\Job Tracker Application.pdb
 C:\Users\Ravi\Documents\PersonalProjects\jobtracker-application\job-tracker-backend\Job Tracker Application\obj\Debug\net8.0\Job Tracker Application.genruntimeconfig.cache
 C:\Users\Ravi\Documents\PersonalProjects\jobtracker-application\job-tracker-backend\Job Tracker Application\obj\Debug\net8.0\ref\Job Tracker Application.dll
+C:\Users\Ravi\Documents\PersonalProjects\jobtracker-application\job-tracker-backend\Job Tracker Application\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -13,10 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var allowedOrigins = new[] {
-    "http://localhost:4200",  // for dev
-    "https://jobtracker-frontend-dgahhpfadnead3ay.canadacentral-01.azurewebsites.net/"  // for production
-};
+var allowedOrigins = "https://jobtracker-frontend-dgahhpfadnead3ay.canadacentral-01.azurewebsites.net/"; // for production
+
 
 
 builder.Services.AddCors(options =>
@@ -26,6 +24,7 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
+
 
 var app = builder.Build();
 
