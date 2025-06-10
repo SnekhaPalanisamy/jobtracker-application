@@ -5198,11 +5198,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ravi\\source\\repos\\Job Tracker Application\\Job Tracker Application\\Job Tracker Application.csproj",
+      "projectUniqueName": "C:\\Users\\Ravi\\Documents\\PersonalProjects\\jobtracker-application\\job-tracker-backend\\Job Tracker Application\\Job Tracker Application.csproj",
       "projectName": "Job Tracker Application",
-      "projectPath": "C:\\Users\\Ravi\\source\\repos\\Job Tracker Application\\Job Tracker Application\\Job Tracker Application.csproj",
+      "projectPath": "C:\\Users\\Ravi\\Documents\\PersonalProjects\\jobtracker-application\\job-tracker-backend\\Job Tracker Application\\Job Tracker Application.csproj",
       "packagesPath": "C:\\Users\\Ravi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ravi\\source\\repos\\Job Tracker Application\\Job Tracker Application\\obj\\",
+      "outputPath": "C:\\Users\\Ravi\\Documents\\PersonalProjects\\jobtracker-application\\job-tracker-backend\\Job Tracker Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

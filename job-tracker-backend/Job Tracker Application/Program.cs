@@ -12,10 +12,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var allowedOrigins = new[] {
+    "http://localhost:4200",  // for dev
+    "https://jobtracker-frontend-dgahhpfadnead3ay.canadacentral-01.azurewebsites.net/"  // for production
+};
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
-        policy => policy.WithOrigins("http://localhost:4200")
+        policy => policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
