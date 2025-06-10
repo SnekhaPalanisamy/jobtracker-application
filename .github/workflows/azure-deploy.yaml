@@ -44,7 +44,11 @@ jobs:
         run: |
           cd job-tracker-frontend/dist
           zip -r ../../../frontend.zip job-tracker-frontend
-
+      - name: Check if Angular zip file exists
+        run: |
+          ls -la
+          ls -la ./frontend.zip
+          
       - name: Deploy Angular frontend using Azure CLI
         run: |
           az webapp deploy \
