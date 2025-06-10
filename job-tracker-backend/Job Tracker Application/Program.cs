@@ -22,7 +22,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp",
         policy => policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
-                        .AllowAnyMethod());
+                        .AllowAnyMethod()
+                        .AllowCredentials());
 });
 
 
