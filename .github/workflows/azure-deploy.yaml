@@ -1,13 +1,15 @@
 name: Deploy JobTracker App (.NET + Angular)
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main  # Change if your default branch is different
 
 env:
   NODE_VERSION: '20'   # Angular requires Node 20 or higher
-  DOTNET_VERSION: '8.0.x'  # Your .NET version
+  DOTNET_VERSION: '8.0.x'   # Your .NET version
+  AZURE_WEBAPP_PACKAGE_PATH:  "./publish"
 
 jobs:
   build-and-deploy:
@@ -40,28 +42,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Zip Angular build output
-        run: |
-          cd job-tracker-frontend/dist
-          zip -r ../../../frontend.zip job-tracker-frontend
-      - name: Check if Angular zip file exists
-        run: |
-          ls -la
-          ls -la ./frontend.zip
-          
-      - name: Deploy Angular frontend using Azure CLI
-        run: |
-          az webapp deploy \
-          --resource-group JobTrackerGroup \
-          --name ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }} \
-          --src-path ./frontend.zip \
-          --type zip
+      - uses: azure/webapps-deploy@v2
+        name: Deploy Angular frontend using Azure CLI
+        with:
+         app-name: ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }}
+         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/job-tracker-frontend'
 
       # 3️⃣ Build .NET backend
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '9.0.x'
 
       - name: Restore .NET dependencies
         working-directory: ./job-tracker-backend
@@ -77,10 +69,10 @@ jobs:
 
       # -------------------------------
       # 4️⃣ Deploy .NET backend to Azure
-      - name: Deploy .NET backend using Azure CLI
-        run: |
-          az webapp deploy \
-            --resource-group JobTrackerGroup \
-            --name ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }} \
-            --src-path ./job-tracker-backend/publish \
-            --type zip
+
+      - uses: azure/webapps-deploy@v2
+        name: Deploy .NET backend using Azure CLI
+        with:
+         app-name: ${{ secrets.AZURE_BACKEND_WEBAPP_NAME }}
+         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/job-tracker-backend'
