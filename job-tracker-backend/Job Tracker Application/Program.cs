@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var allowedOrigins = "https://jobtracker-frontend-dgahhpfadnead3ay.canadacentral-01.azurewebsites.net/"; // for production
+var allowedOrigins = "https://jobtracker-frontend-dgahhpfadnead3ay.canadacentral-01.azurewebsites.net"; // for production
 
 
 
