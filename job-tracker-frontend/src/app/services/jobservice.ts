@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = 'https://localhost:7280/api/Jobs'; // Change this to your real API
+  private apiUrl = 'https://jobtracker-backend-fea0enarhcdbcybm.canadacentral-01.azurewebsites.net/api/Jobs'; // Change this to your real API
 
   constructor(private http: HttpClient) {}
 
