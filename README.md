@@ -39,8 +39,3 @@ Job Tracker Application is a web portal designed for employers to efficiently ma
 ## Deployment
 This project is deployed to **Azure App Service** using **GitHub Actions** for continuous integration and deployment. Update the workflow file to match your Azure subscription and environment.
 
-## Contributing
-Contributions are welcome! Feel free to fork the repo and submit a pull request.
-
-## License
-This project is licensed under the **MIT License**.
