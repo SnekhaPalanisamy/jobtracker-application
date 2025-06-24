@@ -1,4 +1,4 @@
-Job Tracker Application
+Title: Job Tracker Application
 Overview
 Job Tracker Application is a web portal designed for employers to efficiently manage employee job statuses. 
 It allows users to add, update, view, and delete employee records, simplifying job allocation and progress tracking through a clean and intuitive interface.
