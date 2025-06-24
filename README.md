@@ -33,3 +33,7 @@ Database: SQL Server
 Deployment: Azure App Service
 
 CI/CD: GitHub Actions, Azure DevOps
+
+![Jobtracker-Add](https://github.com/user-attachments/assets/d819dc8b-a595-4878-84e2-4094705ea4bc)
+
+
