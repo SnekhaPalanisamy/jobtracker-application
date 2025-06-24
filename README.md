@@ -17,7 +17,7 @@ Job Tracker Application is a web portal designed for employers to efficiently ma
 - **Backend:** .NET Core Web API  
 - **Database:** SQL Server  
 - **Deployment:** Azure App Service  
-- **CI/CD:** GitHub Actions, Azure DevOps  
+- **CI/CD:** GitHub Actions 
 
 ## Screenshots
 
