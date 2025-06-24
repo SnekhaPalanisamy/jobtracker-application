@@ -21,8 +21,6 @@ Job Tracker Application is a web portal designed for employers to efficiently ma
 
 ## Screenshots
 
-> *(Replace the image paths with your actual screenshot file paths in the repo)*
-
 ### Dashboard View  
 ![Jobtracker-Home](https://github.com/user-attachments/assets/5d57eec8-3b50-40d7-8c97-0d68fc4af446)
 
